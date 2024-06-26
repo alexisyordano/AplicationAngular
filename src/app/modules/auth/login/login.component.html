@@ -1,0 +1,71 @@
+<section class="bg-gray-50 dark:bg-gray-500">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-slate-400"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h2
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        >
+          Sign In
+        </h2>
+        <form
+          class="space-y-4 md:space-y-6"
+          [formGroup]="signInForm"
+          #signInNgForm="ngForm"
+        >
+          <mat-form-field class="w-full">
+            <mat-label>Email address</mat-label>
+            <input id="email" matInput [formControlName]="'email'" />
+            <mat-error *ngIf="signInForm.get('email')?.hasError('required')">
+              Email address is required
+            </mat-error>
+            <mat-error *ngIf="signInForm.get('email')?.hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Password</mat-label>
+            <input
+              id="password"
+              matInput
+              type="password"
+              [formControlName]="'password'"
+              #passwordField
+            />
+            <button
+              mat-icon-button
+              type="button"
+              (click)="
+                passwordField.type === 'password'
+                  ? (passwordField.type = 'text')
+                  : (passwordField.type = 'password')
+              "
+              matSuffix
+            ></button>
+            <mat-error> Password is required </mat-error>
+          </mat-form-field>
+
+          <button
+            class="fuse-mat-button-large p-8 w-full mt-6 bg-secundary"
+            mat-flat-button
+            [disabled]="signInForm.disabled"
+            (click)="signIn()"
+          >
+            <span *ngIf="!signInForm.disabled" class="text-white">
+              Sign In
+            </span>
+            <mat-progress-spinner
+              *ngIf="signInForm.disabled"
+              [diameter]="24"
+              [mode]="'indeterminate'"
+            ></mat-progress-spinner>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

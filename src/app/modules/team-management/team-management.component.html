@@ -1,0 +1,30 @@
+<toolbar></toolbar>
+
+<div class="bg-gray-50">
+  <div class="container py-2 px-5">
+    <menu></menu>
+  </div>
+  <div class="flex justify-end relative -left-36 -top-2">
+    <button
+      (click)="createTeam()"
+      class="rounded border bg-secundary h-10 w-40"
+      mat-flat-button
+    >
+      <span class="text-white text-base font-semibold">New Team</span>
+    </button>
+  </div>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="px-4">
+      <list-team
+        (onDetailTeam)="detailTeam($event)"
+        [loaded]="loaded"
+      ></list-team>
+    </div>
+    <div class="relative -left-36">
+      <edit-team
+        (onRefresh)="refreshList(true)"
+        [editTeam]="editDataTeam"
+      ></edit-team>
+    </div>
+  </div>
+</div>

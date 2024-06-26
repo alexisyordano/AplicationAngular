@@ -1,0 +1,12 @@
+<button mat-button (click)="backHome()">Home</button>
+
+<button mat-button [matMenuTriggerFor]="aboveMenu">Options</button>
+<mat-menu #aboveMenu="matMenu" yPosition="above">
+  <button mat-menu-item (click)="teamManagement()">Team Management</button>
+  <button mat-menu-item (click)="teamStatisticst()">Statistics</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="belowMenu">Sign off</button>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item (click)="signOut()">go out</button>
+</mat-menu>

@@ -1,0 +1,88 @@
+<div class="w-full overflow-hidden shadow-lg rounded-2xl bg-white">
+  <div class="px-14 pb-6 pt-9">
+    <div class="grid grid-cols-2 gap-2">
+      <div class="col-span-1">
+        <label class="text-lg text-fuchsia-600">Equipment Registration</label>
+      </div>
+    </div>
+    <hr />
+
+    <form class="mt-8" [formGroup]="formTeam" #editTeamForm="ngForm">
+      <input id="id" [hidden]="true" matInput formControlName="id" />
+      <mat-form-field class="w-4/5">
+        <div class="w-50">
+          <label class="text-gray-400 text-sm">Name Team</label>
+          <input id="name" matInput formControlName="name" />
+        </div>
+        <mat-error *ngIf="formTeam.get('name')?.hasError('required')">
+          the name team required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <div class="w-50">
+          <label class="text-gray-400 text-sm">IP adress</label>
+          <input id="adress" matInput formControlName="adress" />
+        </div>
+        <mat-error *ngIf="formTeam.get('adress')?.hasError('required')">
+          the adress required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="fuse-mat-textarea flex-auto w-full">
+        <div class="w-50">
+          <label class="text-gray-400 text-sm"> description Team </label>
+          <textarea
+            id="description"
+            cdkTextareaAutosize="5"
+            cdkAutosizeMinRows="4"
+            cdkAutosizeMaxRows="50"
+            matInput
+            formControlName="description"
+          ></textarea>
+        </div>
+        <mat-error *ngIf="formTeam.get('description')?.hasError('required')">
+          the description required
+        </mat-error>
+      </mat-form-field>
+      @if(permission !== 'user'){
+      <div class="col-span-1">
+        <mat-checkbox
+          class="border-danger"
+          (change)="enableDelete = $event.checked"
+          [checked]="enableDelete"
+        >
+        </mat-checkbox>
+
+        <a
+          (click)="openModalRemove(enableDelete)"
+          [ngClass]="{
+            'opacity-25': !enableDelete,
+            'opacity-100': enableDelete
+          }"
+          class="text-md text-red-600 font-semibold relative cursor-pointer"
+          >Remover Team</a
+        >
+      </div>
+      }
+      <div class="flex justify-end mt-4">
+        <button
+          class="fuse-mat-button-large p-8 w-44 mt-6 bg-secundary"
+          mat-flat-button
+          [disabled]="formTeam.disabled"
+          (click)="Save()"
+        >
+          <span *ngIf="!formTeam.disabled" class="text-white">
+            @if(label == 'Edit') { Edit } @else { Save }
+          </span>
+          <mat-progress-spinner
+            *ngIf="formTeam.disabled"
+            [diameter]="24"
+            [mode]="'indeterminate'"
+          ></mat-progress-spinner>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<br />
