@@ -80,12 +80,16 @@ export class ListTeamComponent {
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
-        filter((value) => value.length >= 3),
-        switchMap((value) => this._TeamService.searchTeams(value))
+        switchMap((value) => {
+          if (value.length < 3) {
+            return this._TeamService.getTeam();
+          } else {
+            return this._TeamService.searchTeams(value);
+          }
+        })
       )
       .subscribe((response: any) => {
         this.team = response.data;
-        console.log('data', this.team);
         this.dataSourceTablePagination(this.team);
       });
   }
